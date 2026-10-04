@@ -1,0 +1,9 @@
+@tailwind base; @tailwind components; @tailwind utilities;
+body { @apply bg-ink text-bone antialiased; background-image: radial-gradient(60rem 40rem at 85% -10%, rgba(255,122,89,.14), transparent 60%), radial-gradient(45rem 30rem at -10% 20%, rgba(183,201,139,.08), transparent 60%); background-attachment: fixed; }
+.glass { @apply bg-surface/70 backdrop-blur-xl border border-line rounded-3xl; }
+.btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 min-h-[44px] font-medium transition active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-lichen disabled:opacity-40; }
+.btn-primary { @apply btn bg-ember text-ink hover:brightness-110; }
+.btn-ghost { @apply btn border border-line hover:bg-surface; }
+.input { @apply w-full min-h-[44px] rounded-2xl bg-ink border border-line px-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-lichen; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
