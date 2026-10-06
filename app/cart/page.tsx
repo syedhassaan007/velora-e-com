@@ -13,7 +13,8 @@ export default function CartPage() {
   if (lines.length === 0) return <div className="glass p-10 text-center"><h1 className="text-2xl font-semibold">Your cart is empty</h1><Link href="/" className="btn-primary mt-6">Keep shopping</Link></div>;
   async function checkout(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); setBusy(true); setErr("");
-    const f = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
+    const f: Record<string, string> = {};
+new FormData(e.currentTarget).forEach((v, k) => { f[k] = String(v); });
     const res = await fetch("/api/orders", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ items: lines.map((l) => ({ productId: l.productId, qty: l.qty })), address: { line1: f.line1, city: f.city, postal: f.postal, country: f.country }, payment: "SANDBOX" }) });
     const data = await res.json().catch(() => ({}));
     if (res.status === 401) { r.push("/login"); return; }
