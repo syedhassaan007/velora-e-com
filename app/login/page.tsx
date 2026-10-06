@@ -8,7 +8,8 @@ export default function Login() {
   const [err, setErr] = useState(""); const [busy, setBusy] = useState(false);
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); setBusy(true); setErr("");
-    const f = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
+    const f: Record<string, string> = {};
+    new FormData(e.currentTarget).forEach((v, k) => { f[k] = String(v); });
     if (mode === "register" && f.password !== f.confirm) { setErr("Passwords do not match."); setBusy(false); return; }
     const res = await fetch(`/api/auth/${mode}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(f) });
     if (res.ok) { r.push("/"); r.refresh(); } else setErr((await res.json().catch(() => ({}))).error ?? "Something went wrong.");
