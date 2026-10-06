@@ -14,7 +14,7 @@ export default function CartPage() {
   async function checkout(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); setBusy(true); setErr("");
     const f: Record<string, string> = {};
-new FormData(e.currentTarget).forEach((v, k) => { f[k] = String(v); });
+    new FormData(e.currentTarget).forEach((v, k) => { f[k] = String(v); });
     const res = await fetch("/api/orders", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ items: lines.map((l) => ({ productId: l.productId, qty: l.qty })), address: { line1: f.line1, city: f.city, postal: f.postal, country: f.country }, payment: "SANDBOX" }) });
     const data = await res.json().catch(() => ({}));
     if (res.status === 401) { r.push("/login"); return; }
